@@ -15,10 +15,10 @@ class MiddlewareCode
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->hasCookie('code_web')) {
-            \Log::info('Mi Middleware ejecutado');
-            return redirect()->route('inputCode');;
+        if ($request->hasCookie('code')) {
+            // \Log::info('Mi Middleware ejecutado');
+            return $next($request);
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('inputCode');
     }
 }

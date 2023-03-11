@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Code;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 class GenerateCodeController extends Controller
 {
@@ -33,8 +33,8 @@ class GenerateCodeController extends Controller
 
                 return response()->json($num, 200);
             }
-            return response()->json('Codigo No Valido', 400);
         }
+        return response()->json('Codigo No Valido', 400);
     }
     public function storeWeb(Request $request)
     {
@@ -49,11 +49,11 @@ class GenerateCodeController extends Controller
 
                 $code->save();
 
-                cookie('code_web',$code_web);
+                Cookie::queue('code', $code_web);
 
                 return redirect('dashboard');
             }
-            return response()->json('Codigo No Valido', 400);
         }
+        return response()->json('Codigo No Valido', 400);
     }
 }

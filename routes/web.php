@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','code'])->name('dashboard');
 
 Route::get('/signed-route', [SignedRouteController::class, 'SignedRoute'])->name('signed-route');
 
@@ -32,7 +32,7 @@ Route::get('/input-code', function () {
 
 Route::post('/validate-code-web', [GenerateCodeController::class, 'storeWeb'])->name('codigoWeb');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','code'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -14,6 +14,14 @@ class SignedRouteController extends Controller
     {
         // verificar la firma de la URL
         if (!$request->hasValidSignature()) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            // return redirect('/');
+
             abort(403, 'URL no válida o expirada');
         }
 
