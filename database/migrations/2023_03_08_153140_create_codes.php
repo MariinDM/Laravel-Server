@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('token-web', function (Blueprint $table) {
+        Schema::create('codes', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->boolean('active');
-            $table->foreignId('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
+            $table->boolean('active')->default(true);
+            $table->integer('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('token-web');
+        Schema::dropIfExists('codes');
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenerateCodeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignedRouteController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/signed-route', [SignedRouteController::class, 'SignedRoute'])->name('signed-route');
+
+Route::get('/input-code', function () {
+    return view('input-code');
+})->name('inputCode');
+
+Route::post('/validate-code-web', [GenerateCodeController::class, 'storeWeb'])->name('codigoWeb');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
